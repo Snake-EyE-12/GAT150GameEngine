@@ -3,8 +3,8 @@
 class Laser : public cg::Actor
 {
 public:
-	Laser(const cg::Transform& transform, std::shared_ptr<cg::Model> model) :
-		Actor{ transform, model }
+	Laser(const cg::Transform& transform) :
+		Actor{ transform }
 	{}
 	void Update(float dt) override;
 	void OnCollision(Actor* other) override;

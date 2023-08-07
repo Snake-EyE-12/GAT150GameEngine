@@ -31,7 +31,7 @@ void Enemy::Update(float dt)
 			if (m_fireTimer <= 0) {
 				m_fireTimer = m_fireRate;
 				cg::Transform transform{m_transform.position, m_transform.rotation, 1};
-				std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(400.0f, transform, m_model);
+				std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(400.0f, transform);
 				bullet->m_tag = "Bullet";
 				bullet->m_game = m_game;
 				m_scene->Add(std::move(bullet));

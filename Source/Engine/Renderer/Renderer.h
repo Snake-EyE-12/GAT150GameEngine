@@ -32,6 +32,10 @@ namespace cg
 		int getWidth() const { return m_width; }
 		int getHeight() const { return m_height; }
 
+		void DrawTexture(class Texture* texture, float x, float y, float angle = 0.0f);
+
+		friend class Texture;
+
 	private:
 		int m_width = 0;
 		int m_height = 0;

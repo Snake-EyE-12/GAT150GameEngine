@@ -11,7 +11,7 @@ void Block::Update(float dt)
 
 	//cg::Vector2 forward = cg::Vector2{ 0, -1 }.Rotate(m_angle);
 	m_transform.position += m_forwardV * m_speed * dt;
-	AddForce({ 0.0f, 9.8f * dt * m_gravity });
+	//AddForce({ 0.0f, 9.8f * dt * m_gravity });
 
 	//if (m_transform.position.x < 0 || m_transform.position.x >(float)cg::g_renderer.getWidth()) m_destroyed = true;
 	m_transform.position.x = cg::Clamp(m_transform.position.x, 0.0f, (float)cg::g_renderer.getWidth());
@@ -60,7 +60,7 @@ void Block::Place()
 {
 	m_speed = 0;
 	m_gravity = 0;
-	m_velocity *= 0;
+	//m_velocity *= 0;
 	m_placed = true;
 	//std::cout << "Placed" << std::endl;
 	if (dynamic_cast<AstroidFighter*>(m_game)->AttemptClearTetris()) m_game->AddPoints(1000);
@@ -83,7 +83,7 @@ bool Block::Destroy()
 	data.speedMin = 1000;
 	data.speedMax = 1250;
 	data.damping = 0.9f;
-	data.color = m_model->GetColor();
+	//data.color = m_model->GetColor();
 
 	cg::Transform transform{ m_transform.position, 0, 1 };
 	auto emitter = std::make_unique<cg::Emitter>(transform, data);

@@ -5,6 +5,8 @@
 #include "AstroidFighter.h"
 #include "Framework/Emitter.h"
 
+#include "Framework/Components/PhysicsComponent.h"
+
 #include "Audio/AudioSystem.h"
 #include "Enemy.h"
 
@@ -20,10 +22,14 @@ void Player::Update(float dt)
 	float thrust = 0;
 	if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
 	cg::Vector2 forward = cg::Vector2{ 0, -1 }.Rotate(m_transform.rotation);
-	AddForce(forward * m_speed * thrust);
+	//AddForce(forward * m_speed * thrust);
 
 	m_transform.position.x = cg::Wrap(m_transform.position.x, (float)cg::g_renderer.getWidth());
 	m_transform.position.y = cg::Wrap(m_transform.position.y, (float)cg::g_renderer.getHeight());
+
+
+	auto physicsComponent = GetComponent<cg::PhysicsComponent>();
+	physicsComponent->ApplyForce(forward * thrust * m_speed);
 
 	m_fireTimer -= dt;
 	if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && m_fireTimer <= 0 && !m_onBlock) {

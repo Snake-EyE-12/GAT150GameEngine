@@ -35,6 +35,8 @@ private:
 	float m_spawnRate = 3.0f;
 	float m_stateTimer = 1.0f;
 
+	std::shared_ptr<cg::Font> m_font;
+
 	std::shared_ptr<cg::Font> m_fontBig;
 	std::shared_ptr<cg::Font> m_fontMedium;
 	std::shared_ptr<cg::Font> m_fontSmall;

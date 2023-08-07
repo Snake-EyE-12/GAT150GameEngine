@@ -4,6 +4,9 @@
 #include "Laser.h"
 #include "Block.h"
 
+#include "Framework/Components/SpriteComponent.h"
+#include "Framework/Components/EnginePhysicsComponent.h"
+
 #include "Framework/Scene.h"
 #include "Framework/Emitter.h"
 
@@ -12,6 +15,7 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
 #include "Renderer/ModelManager.h"
+#include "Framework/Resource/ResourceManager.h"
 
 #include <array>
 
@@ -20,6 +24,9 @@
 bool AstroidFighter::Initialize()
 {
 	//UI
+	//m_font = cg::g_resources.Get<cg::Font>("Marlboro.ttf", 34);
+
+
 	m_fontSmall = std::make_shared<cg::Font>("Marlboro.ttf", 24);
 	m_fontMedium = std::make_shared<cg::Font>("Marlboro.ttf", 50);
 	m_fontBig = std::make_shared<cg::Font>("Marlboro.ttf", 100);
@@ -83,13 +90,20 @@ void AstroidFighter::Update(float dt)
 	case eState::StartLevel: {
 		m_scene->RemoveAll();
 
-		std::unique_ptr<Player> player = std::make_unique<Player>(0.3f, 5.0f, cg::Pi, cg::Transform{ {400, 300}, 0, 5 }, cg::g_manager.Get("ship.txt"));
+		std::unique_ptr<Player> player = std::make_unique<Player>(0.3f, 5.0f, cg::Pi, cg::Transform{ {400, 300}, 0, 5 });
 		player->m_tag = "Player";
 		player->m_game = this;
-		player->SetDamping(0.6f);
+		std::unique_ptr<cg::SpriteComponent> component = std::make_unique<cg::SpriteComponent>();
+		component->m_texture = cg::g_resources.Get<cg::Texture>("Rocket.png", cg::g_renderer);
+		player->AddComponent(std::move(component));
+		auto phyComponent = std::make_unique<cg::EnginePhysicsComponent>();
+		phyComponent->m_damping = 0.6f;
+		player->AddComponent(std::move(phyComponent));
+
+
 		m_scene->Add(move(player));
 
-		std::unique_ptr<Laser> laser = std::make_unique<Laser>(cg::Transform{ {400, 10}, 0, 40 }, cg::g_manager.Get("laser.txt"));
+		std::unique_ptr<Laser> laser = std::make_unique<Laser>(cg::Transform{ {400, 10}, 0, 40 });
 		laser->m_tag = "Laser";
 		laser->m_game = this;
 		m_scene->Add(move(laser));
@@ -103,9 +117,12 @@ void AstroidFighter::Update(float dt)
 	case eState::Game:
 		m_spawnTime += dt;
 		if (m_spawnTime >= m_spawnRate) {
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(cg::randomf(100, 150), cg::Pi, cg::Transform{ {cg::random(800), cg::random(600)}, cg::randomf(cg::TwoPi), 6}, cg::g_manager.Get("astroid.txt"));
+			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(cg::randomf(100, 150), cg::Pi, cg::Transform{ {cg::random(800), cg::random(600)}, cg::randomf(cg::TwoPi), 6});
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
+			std::unique_ptr<cg::SpriteComponent> component = std::make_unique<cg::SpriteComponent>();
+			component->m_texture = cg::g_resources.Get<cg::Texture>("Rocket.png", cg::g_renderer);
+
 			m_scene->Add(move(enemy));
 			m_spawnTime = 0;
 		}

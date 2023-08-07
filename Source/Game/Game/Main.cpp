@@ -1,21 +1,27 @@
 #include "AstroidFighter.h"
 #include "GameIncludes.h"
+#include <cassert>
+#include "Renderer/Texture.h"
+#include "Framework/Resource/ResourceManager.h"
 
 
 using namespace std;
 
-
 int main(int argc, char* argv[])
 {
+
+	//print_arg(3, " Bob ", "The", "Builder");
+
+
+
 	//Initialization
-	cg::MemoryTracker::Initialize();
+ 	cg::MemoryTracker::Initialize();
 	cg::seedRandom((unsigned int)time(nullptr));
 	cg::setFilePath("assets");
 	cg::g_renderer.Initialize();
 	cg::g_renderer.CreateWindow("Window", 800, 600);
 	cg::g_inputSystem.Initialize();
 	cg::g_audioSystem.Initialize();
-
 
 	unique_ptr<AstroidFighter> game = make_unique<AstroidFighter>();
 	game->Initialize();

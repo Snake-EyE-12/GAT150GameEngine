@@ -4,8 +4,8 @@
 class Player : public cg::Actor
 {
 public:
-	Player(float fireSpeed, float speed, float turnRate, const cg::Transform& transform, std::shared_ptr<cg::Model> model) :
-		Actor{ transform, model },
+	Player(float fireSpeed, float speed, float turnRate, const cg::Transform& transform) :
+		Actor{ transform },
 		m_speed{ speed },
 		m_fireRate{ fireSpeed },
 		m_turnRate{ turnRate }

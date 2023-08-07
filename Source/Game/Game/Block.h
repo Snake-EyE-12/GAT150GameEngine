@@ -6,7 +6,8 @@ class Block : public cg::Actor
 {
 public:
 	Block(float speed, const cg::Transform& transform, int type,cg::Vector2 forwardAngle) :
-		Actor{ transform, GetModel(type)},
+		//Actor{ transform, GetModel(type)},
+		Actor{ transform },
 		m_speed{ speed },
 		m_forwardV{ forwardAngle }
 	{

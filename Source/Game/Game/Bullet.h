@@ -3,8 +3,8 @@
 class Bullet : public cg::Actor
 {
 public:
-	Bullet(float speed, const cg::Transform& transform, std::shared_ptr<cg::Model> model) :
-		Actor{ transform, model },
+	Bullet(float speed, const cg::Transform& transform) :
+		Actor{ transform },
 		m_speed{ speed }
 	{
 		m_lifespan = 2.0f;

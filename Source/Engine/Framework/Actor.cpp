@@ -1,4 +1,6 @@
 #include "Actor.h"
+#include "Components/RenderComponent.h"
+#include "Components/PhysicsComponent.h"
 
 namespace cg
 {
@@ -9,10 +11,26 @@ namespace cg
 				m_destroyed = true;
 			}
 		}
-		m_transform.position += m_velocity * dt;
-		m_velocity *= std::pow(1.0f - m_damping, dt);
+		for (auto& component : m_components) {
+			PhysicsComponent* rComp = dynamic_cast<PhysicsComponent*>(component.get());
+			if (rComp) {
+				rComp->Update(dt);
+			}
+		}
+		
 	}
 	void Actor::Draw(cg::Renderer& renderer) {
-		m_model->Draw(renderer, m_transform);
+
+		for (auto& component : m_components) {
+			RenderComponent* rComp = dynamic_cast<RenderComponent*>(component.get());
+			if (rComp) {
+				rComp->Draw(renderer);
+			}
+		}
+	}
+	void Actor::AddComponent(std::unique_ptr<Component> component)
+	{
+		component->m_owner = this;
+		m_components.push_back(std::move(component));
 	}
 }
