@@ -19,9 +19,6 @@
     <ClCompile Include="Text.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="ModelManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -43,9 +40,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelManager.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">

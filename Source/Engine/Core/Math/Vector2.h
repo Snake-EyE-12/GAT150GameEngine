@@ -15,6 +15,11 @@ namespace cg
 		Vector2(int x, int y) : x{ (float)x }, y{ (float)y } {}
 
 	public:
+		float operator [] (size_t index) const { return (&x)[index]; }
+		float& operator [] (size_t index) { return (&x)[index]; }
+		Vector2 operator - () { return Vector2(-x, -y); }
+
+	public:
 		Vector2 operator + (const Vector2& other) const { return Vector2(x + other.x, y + other.y); }
 		Vector2 operator - (const Vector2& other) const { return Vector2(x - other.x, y - other.y); }
 		Vector2 operator * (const Vector2& other) const { return Vector2(x * other.x, y * other.y); }
@@ -64,6 +69,11 @@ namespace cg
 		std::string ys = line.substr(line.find(",") + 1, line.find("}") - (line.find(",") + 1));
 		v.y = std::stof(ys);
 
+		return stream;
+	}
+	inline std::ostream& operator<<(std::ostream& stream, const Vector2& v)
+	{
+		stream << v.x << " " << v.y;
 		return stream;
 	}
 	// get the unsigned angle in radians between the normalized v1 and normalized v2

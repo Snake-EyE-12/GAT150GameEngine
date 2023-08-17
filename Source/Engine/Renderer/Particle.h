@@ -1,7 +1,6 @@
 #pragma once
-#include "Core/Vector2.h"
-#include "Renderer/Renderer.h"
-#include "Core/Color.h"
+#include "Core/Math/Vector2.h"
+#include "Core/Math/Color.h"
 namespace cg
 {
 	struct ParticleData
@@ -25,7 +24,7 @@ namespace cg
 			m_isActive = true;
 		}
 		void Update(float dt);
-		void Draw(Renderer& renderer);
+		void Draw(class Renderer& renderer);
 		friend class ParticleSystem;
 	private:
 		ParticleData m_data;

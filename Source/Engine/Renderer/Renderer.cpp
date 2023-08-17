@@ -1,6 +1,6 @@
 #include "Renderer.h"
 #include "SDL2-2.28.0/include/SDL_image.h"
-#include "Core/Vector2.h"
+#include "Core/Math/Vector2.h"
 #include "Renderer/Texture.h"
 namespace cg
 {
@@ -64,6 +64,21 @@ namespace cg
 		dest.w = size.x;
 		dest.h = size.y;
 		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, angle, NULL, SDL_FLIP_NONE);
+	}
+
+	void Renderer::DrawTexture(Texture* texture, const Transform& transform)
+	{
+		Matrix3x3 mx = transform.GetMatrix();
+
+		Vector2 position = mx.GetTranslation();
+		Vector2 size = texture->GetSize() * mx.GetScale();
+
+		SDL_Rect dest;
+		dest.x = (int)(position.x - (size.x * 0.5f));
+		dest.y = (int)(position.y - (size.y * 0.5f));
+		dest.w = size.x;
+		dest.h = size.y;
+		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, cg::Rad2Deg(mx.GetRotation()), NULL, SDL_FLIP_NONE);
 	}
 
 }

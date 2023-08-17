@@ -7,7 +7,7 @@ public:
 		Actor{ transform },
 		m_speed{ speed }
 	{
-		m_lifespan = 2.0f;
+		lifespan = 2.0f;
 	}
 	void Update(float dt) override;
 	void OnCollision(Actor* other) override;

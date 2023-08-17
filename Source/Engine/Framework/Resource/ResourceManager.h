@@ -3,10 +3,14 @@
 #include <map>
 #include <memory>
 #include <string>
+#include "Framework/Singleton.h"
+
+#define GET_RESOURCE(type, filename, ...) cg::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__);
+
 
 namespace cg
 {
-	class ResourceManager
+	class ResourceManager : public Singleton<ResourceManager>
 	{
 	public:
 		template<typename T, typename ... TArgs>
@@ -28,5 +32,4 @@ namespace cg
 		return resource;
 
 	}
-	extern ResourceManager g_resources;
 }

@@ -5,7 +5,7 @@ namespace cg
 	class EnginePhysicsComponent : public PhysicsComponent
 	{
 	public:
-
+		CLASS_DECLARATION(EnginePhysicsComponent);
 
 		// Inherited via PhyscisComponent
 		virtual void Update(float dt) override;

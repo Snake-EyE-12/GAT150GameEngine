@@ -2,12 +2,14 @@
 #include <string>
 #include <cassert>
 #include <fstream>
+#include "Framework/Singleton.h"
+#include <iostream>
 
 #ifdef _DEBUG
-#define INFO_LOG(message)				{ if (cg::g_logger.Log(cg::LogLevel::Info, __FILE__, __LINE__)) { cg::g_logger << message << "\n"; } }
-#define WARNING_LOG(message)			{ if (cg::g_logger.Log(cg::LogLevel::Warning, __FILE__, __LINE__)) { cg::g_logger << message << "\n"; } }
-#define ERROR_LOG(message)				{ if (cg::g_logger.Log(cg::LogLevel::Error, __FILE__, __LINE__)) { cg::g_logger << message << "\n"; } }
-#define ASSERT_LOG(condition, message)	{ if (!condition && cg::g_logger.Log(cg::LogLevel::Assert, __FILE__, __LINE__)) { cg::g_logger << message << "\n"; } assert(condition); }
+#define INFO_LOG(message)				{ if (cg::Logger::Instance().Log(cg::LogLevel::Info, __FILE__, __LINE__)) { cg::Logger::Instance() << message << "\n"; } }
+#define WARNING_LOG(message)			{ if (cg::Logger::Instance().Log(cg::LogLevel::Warning, __FILE__, __LINE__)) { cg::Logger::Instance() << message << "\n"; } }
+#define ERROR_LOG(message)				{ if (cg::Logger::Instance().Log(cg::LogLevel::Error, __FILE__, __LINE__)) { cg::Logger::Instance() << message << "\n"; } }
+#define ASSERT_LOG(condition, message)	{ if (!condition && cg::Logger::Instance().Log(cg::LogLevel::Assert, __FILE__, __LINE__)) { cg::Logger::Instance() << message << "\n"; } assert(condition); }
 #else
 #define INFO_LOG(message)				{}
 #define WARNING_LOG(message)			{}
@@ -25,10 +27,10 @@ namespace cg
 		Assert
 	};
 
-	class Logger
+	class Logger : public Singleton<Logger>
 	{
 	public:
-		Logger(LogLevel logLevel, std::ostream* ostream, const std::string& filename = "") :
+		Logger(LogLevel logLevel = LogLevel::Info, std::ostream* ostream = &std::cout, const std::string& filename = "log.txt") :
 			m_ostream{ ostream },
 			m_logLevel{ logLevel }
 		{
@@ -60,7 +62,4 @@ namespace cg
 
 		return *this;
 	}
-
-
-	extern Logger g_logger;
 }

@@ -5,11 +5,11 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source\Math">
+      <UniqueIdentifier>{daca9e7e-9ecd-4cd6-a6e5-bff1a3f4712b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Random.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="FileIO.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -19,22 +19,37 @@
     <ClInclude Include="Time.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Core.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="MathUtils.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Logger.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Random.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Transform.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Color.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathUtils.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix2x2.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix3x3.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Json.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,6 +65,12 @@
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Json.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Transform.cpp">
+      <Filter>Source\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

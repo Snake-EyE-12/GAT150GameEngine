@@ -4,6 +4,8 @@
 
 
 struct _TTF_Font;
+
+
 namespace cg
 {
 	class Font : public Resource

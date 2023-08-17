@@ -1,23 +1,27 @@
 #pragma once
-#include "Renderer.h"
 #include "Font.h"
-#include "Core/Color.h"
+#include "Core/Math/Color.h"
 #include <string>
 #include <memory>
+#include "Framework/Resource/Resource.h"
+
+struct SDL_Texture;
+
 namespace cg
 {
-	class Text
+	class Renderer;
+	class Text : public Resource
 	{
 	public:
 		Text() = default;
 		Text(std::shared_ptr<Font> font) : m_font{ font } { }
 		~Text();
-		void Create(Renderer& renderer, const std::string& text, const Color& color);
+		virtual bool Create(std::string filename, ...) override;
+		bool Load(Renderer& renderer, const std::string& text, const Color& color);
 		void Draw(Renderer& renderer, int x, int y);
-		//void ChangeText(std::string& text);
 
 	private:
 		std::shared_ptr<Font> m_font;
-		struct SDL_Texture* m_texture = nullptr;
+		SDL_Texture* m_texture = nullptr;
 	};
 }

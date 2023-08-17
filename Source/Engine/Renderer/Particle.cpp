@@ -1,6 +1,7 @@
 #include "Particle.h"
 #include "Input/InputSystem.h"
 #include "Core/Time.h"
+#include "Renderer.h"
 namespace cg
 {
 	void Particle::Update(float dt)

@@ -28,7 +28,7 @@ namespace cg
 	{
 		// ASSERT texture is not null
 		SDL_Point point;
-		SDL_QueryTexture(m_texture, NULL, NULL, &(point.x), &(point.y));
+		SDL_QueryTexture(m_texture, nullptr, nullptr, &(point.x), &(point.y));
 		return Vector2{ point.x, point.y };
 	}
 

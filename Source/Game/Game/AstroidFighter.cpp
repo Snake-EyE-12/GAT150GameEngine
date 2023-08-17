@@ -4,18 +4,12 @@
 #include "Laser.h"
 #include "Block.h"
 
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Components/EnginePhysicsComponent.h"
-
-#include "Framework/Scene.h"
-#include "Framework/Emitter.h"
-
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
+
 #include "Renderer/Renderer.h"
-#include "Renderer/Text.h"
-#include "Renderer/ModelManager.h"
-#include "Framework/Resource/ResourceManager.h"
+
+#include "Framework/Framework.h"
 
 #include <array>
 
@@ -24,26 +18,27 @@
 bool AstroidFighter::Initialize()
 {
 	//UI
-	//m_font = cg::g_resources.Get<cg::Font>("Marlboro.ttf", 34);
+	/*m_font = GET_RESOURCE(cg::Font, "Marlboro.ttf", 34);
 
 
 	m_fontSmall = std::make_shared<cg::Font>("Marlboro.ttf", 24);
 	m_fontMedium = std::make_shared<cg::Font>("Marlboro.ttf", 50);
-	m_fontBig = std::make_shared<cg::Font>("Marlboro.ttf", 100);
+	m_fontBig = std::make_shared<cg::Font>("Marlboro.ttf", 100);*/
 
 
-	m_scoreText = std::make_unique<cg::Text>(m_fontSmall);
-	m_livesText = std::make_unique<cg::Text>(m_fontSmall);
+	//m_scoreText = std::make_unique<cg::Text>(m_fontSmall);
+	//m_livesText = std::make_unique<cg::Text>(m_fontSmall);
 	//m_scoreText->Create(cg::g_renderer, "Score:", cg::Color{ 1, 1, 1, 1 });
 
-	m_titleText = std::make_unique<cg::Text>(m_fontBig);
-	m_titleText->Create(cg::g_renderer, "Asteroid Fighter", cg::Color{ 1, 1, 1, 1 });
+	//m_titleText = GET_RESOURCE(cg::Text, "Asteroid Fighter", cg::Color{ 1, 1, 1, 1 }, GET_RESOURCE(cg::Font, "Marlboro.ttf", 34));
+	//m_titleText = std::make_unique<cg::Text>(m_fontBig);
+	//m_titleText->Create(cg::g_renderer, "Asteroid Fighter", cg::Color{ 1, 1, 1, 1 });
 
-	m_controlsText = std::make_unique<cg::Text>(m_fontMedium);
-	m_controlsText->Create(cg::g_renderer, "Press Space To Play", cg::Color{ 0.6f, 0.6f, 0.5f, 1 });
+	//m_controlsText = std::make_unique<cg::Text>(m_fontMedium);
+	//m_controlsText->Create(cg::g_renderer, "Press Space To Play", cg::Color{ 0.6f, 0.6f, 0.5f, 1 });
 
-	m_gameOverText = std::make_unique<cg::Text>(m_fontBig);
-	m_gameOverText->Create(cg::g_renderer, "Game Over", cg::Color{ 1, 0, 0, 1 });
+	//m_gameOverText = std::make_unique<cg::Text>(m_fontBig);
+	//m_gameOverText->Create(cg::g_renderer, "Game Over", cg::Color{ 1, 0, 0, 1 });
 
 	//Audio
 	cg::g_audioSystem.AddAudio("hit", "boom.wav");
@@ -91,20 +86,28 @@ void AstroidFighter::Update(float dt)
 		m_scene->RemoveAll();
 
 		std::unique_ptr<Player> player = std::make_unique<Player>(0.3f, 5.0f, cg::Pi, cg::Transform{ {400, 300}, 0, 5 });
-		player->m_tag = "Player";
+		player->tag = "Player";
 		player->m_game = this;
-		std::unique_ptr<cg::SpriteComponent> component = std::make_unique<cg::SpriteComponent>();
-		component->m_texture = cg::g_resources.Get<cg::Texture>("Rocket.png", cg::g_renderer);
-		player->AddComponent(std::move(component));
+
+		//std::unique_ptr<cg::SpriteComponent> rComponent = std::make_unique<cg::SpriteComponent>();
+		auto rComponent = CREATE_CLASS(SpriteRenderComponent);
+		rComponent->m_texture = GET_RESOURCE(cg::Texture, "Rocket.png", cg::g_renderer);
+		player->AddComponent(std::move(rComponent));
+
 		auto phyComponent = std::make_unique<cg::EnginePhysicsComponent>();
 		phyComponent->m_damping = 0.6f;
 		player->AddComponent(std::move(phyComponent));
 
+		auto colComponent = std::make_unique<cg::CircleCollisionComponet>();
+		colComponent->m_radius = 0.6f;
+		player->AddComponent(std::move(colComponent));
+
+		player->Initialize();
 
 		m_scene->Add(move(player));
 
 		std::unique_ptr<Laser> laser = std::make_unique<Laser>(cg::Transform{ {400, 10}, 0, 40 });
-		laser->m_tag = "Laser";
+		laser->tag = "Laser";
 		laser->m_game = this;
 		m_scene->Add(move(laser));
 
@@ -118,12 +121,22 @@ void AstroidFighter::Update(float dt)
 		m_spawnTime += dt;
 		if (m_spawnTime >= m_spawnRate) {
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(cg::randomf(100, 150), cg::Pi, cg::Transform{ {cg::random(800), cg::random(600)}, cg::randomf(cg::TwoPi), 6});
-			enemy->m_tag = "Enemy";
+			enemy->tag = "Enemy";
 			enemy->m_game = this;
-			std::unique_ptr<cg::SpriteComponent> component = std::make_unique<cg::SpriteComponent>();
-			component->m_texture = cg::g_resources.Get<cg::Texture>("Rocket.png", cg::g_renderer);
+			std::unique_ptr<cg::SpriteRenderComponent> component = std::make_unique<cg::SpriteRenderComponent>();
+			component->m_texture = GET_RESOURCE(cg::Texture, "Rocket.png", cg::g_renderer);
+
+			auto phyComponent = std::make_unique<cg::EnginePhysicsComponent>();
+			phyComponent->m_damping = 0.6f;
+			enemy->AddComponent(std::move(phyComponent));
+
+			auto colComponent = std::make_unique<cg::CircleCollisionComponet>();
+			colComponent->m_radius = 0.6f;
+			enemy->AddComponent(std::move(colComponent));
+
 
 			m_scene->Add(move(enemy));
+
 			m_spawnTime = 0;
 		}
 		
@@ -172,23 +185,24 @@ void AstroidFighter::Update(float dt)
 		break;
 	}
 	
-	m_scoreText->Create(cg::g_renderer, std::to_string(m_score), { 0.6f, 0.6f, 0.5f, 1 });
-	m_livesText->Create(cg::g_renderer, std::to_string(m_lives), { 0.94f, 0.3f, 0.3f, 1 });
+	//m_scoreText->Create(cg::g_renderer, std::to_string(m_score), { 0.6f, 0.6f, 0.5f, 1 });
+	//m_livesText->Create(cg::g_renderer, std::to_string(m_lives), { 0.94f, 0.3f, 0.3f, 1 });
 	m_scene->Update(dt);
 }
 
 void AstroidFighter::Draw(cg::Renderer& renderer)
 {
 	if (m_state == eState::Title) {
-		m_titleText->Draw(renderer, 150, 200);
-		m_controlsText->Draw(renderer, 200, 300);
+		//m_titleText->Draw(renderer, 150, 200);
+		//m_controlsText->Draw(renderer, 200, 300);
+		//GET_RESOURCE()
 	}
 	else {
-		m_livesText->Draw(renderer, 760, 40);
+		//m_livesText->Draw(renderer, 760, 40);
 
 	}
-	m_scoreText->Draw(renderer, 40, 40);
-	if (m_state == eState::GameOver) m_gameOverText->Draw(renderer, 250, 230);
+	//m_scoreText->Draw(renderer, 40, 40);
+	//if (m_state == eState::GameOver) m_gameOverText->Draw(renderer, 250, 230);
 	
 
 	m_scene->Draw(renderer);
@@ -201,7 +215,7 @@ bool AstroidFighter::AttemptClearTetris()
 	const int height = 10;
 	int eachBlockLine[width][height];
 	for (Block* block : m_scene->GetBlocks()) {
-		eachBlockLine[(int)(cg::Clamp(block->m_transform.position.x / cg::g_renderer.getWidth(), 0.0f, 0.99f) * width)][(int)(cg::Clamp(block->m_transform.position.y / cg::g_renderer.getHeight(), 0.0f, 0.99f) * height)] = 1;
+		eachBlockLine[(int)(cg::Clamp(block->transform.position.x / cg::g_renderer.getWidth(), 0.0f, 0.99f) * width)][(int)(cg::Clamp(block->transform.position.y / cg::g_renderer.getHeight(), 0.0f, 0.99f) * height)] = 1;
 	}
 	int tetris = -1;
 
@@ -220,7 +234,7 @@ bool AstroidFighter::AttemptClearTetris()
 	}
 	if (tetris == -1) return false;
 	for (Block* block : m_scene->GetBlocks()) {
-		if ((int)(cg::Clamp(block->m_transform.position.y / cg::g_renderer.getHeight(), 0.0f, 0.99f) * height) == tetris) {
+		if ((int)(cg::Clamp(block->transform.position.y / cg::g_renderer.getHeight(), 0.0f, 0.99f) * height) == tetris) {
 			block->Destroy();
 		}
 	}
@@ -238,17 +252,3 @@ void AstroidFighter::TetrisMaxHeightReached()
 	}
 
 }
-
-
-/*
-Things Added:
-
-Music and Tetris Sound Track
-Different Types of Bullets
-Scene Tetris Completion
-Height Limit With a Laser
-Bonus Points - Player Health - Player Fire Rate
-
-
-*/
-

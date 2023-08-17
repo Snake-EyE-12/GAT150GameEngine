@@ -1,7 +1,6 @@
 #pragma once
 #include "Framework/Actor.h"
-#include "Renderer/ModelManager.h"
-#include "Core/Vector2.h"
+#include "Core/Math/Vector2.h"
 class Block : public cg::Actor
 {
 public:
@@ -18,7 +17,7 @@ public:
 	void Place();
 	bool Destroy();
 	std::shared_ptr<cg::Model> GetModel(int value) {
-		switch (value)
+		/*switch (value)
 		{
 		case 0 :
 		{
@@ -49,7 +48,7 @@ public:
 			return cg::g_manager.Get("block6.txt");
 		}
 
-		}
+		}*/
 	}
 	bool m_placed = false;
 private:
