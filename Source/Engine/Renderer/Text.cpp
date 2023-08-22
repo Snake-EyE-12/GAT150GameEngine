@@ -35,11 +35,11 @@ namespace cg
 		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
 		SDL_RenderCopyEx(renderer.m_renderer, m_texture, nullptr, &dest, Rad2Deg(mx.GetRotation()), nullptr, SDL_FLIP_NONE);
 	}
-	/*void Text::Draw(Renderer& renderer, int x, int y)
+	void Text::Draw(Renderer& renderer, int x, int y)
 	{
 		int width, height;
 		SDL_QueryTexture(m_texture, nullptr, nullptr, &width, &height);
 		SDL_Rect rect{ x, y, width, height };
 		SDL_RenderCopy(renderer.m_renderer, m_texture, NULL, &rect);
-	}*/
+	}
 }

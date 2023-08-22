@@ -16,7 +16,7 @@ namespace cg
 		Text(std::shared_ptr<Font> font) : m_font{ font } { }
 		~Text();
 		bool Create(Renderer& renderer, const std::string& text, const Color& color);
-		//void Draw(Renderer& renderer, int x, int y);
+		void Draw(Renderer& renderer, int x, int y);
 		void Draw(Renderer& renderer, const class Transform& transform);
 
 	private:

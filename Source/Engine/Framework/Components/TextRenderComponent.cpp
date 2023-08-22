@@ -1,7 +1,9 @@
 #include "TextRenderComponent.h"
-//#include "Framework/Resource/ResourceManager.h"
 #include "Framework/Actor.h"
-#include "Core/Json.h"
+#include "Framework/Resource/ResourceManager.h"
+
+#include <memory>
+
 namespace cg
 {
 	CLASS_DEFINITION(TextRenderComponent)

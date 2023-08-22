@@ -6,7 +6,7 @@ namespace cg
 {
 	class Block : public cg::Actor
 	{
-	CLASS_DEFINITION(Block);
+	//CLASS_DEFINITION(Block);
 	public:
 		Block(float speed, const cg::Transform& transform, int type, cg::Vector2 forwardAngle) :
 			//Actor{ transform, GetModel(type)},

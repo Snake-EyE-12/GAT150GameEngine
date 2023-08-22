@@ -18,7 +18,7 @@
 bool AstroidFighter::Initialize()
 {
 	//UI
-	m_font = cg::ResourceManager::Instance().Get<cg::Font>("Marlboro.ttf", 34);
+	//m_font = cg::ResourceManager::Instance().Get<cg::Font>("Marlboro.ttf", 34);
 
 
 	/*m_fontSmall = std::make_shared<cg::Font>("Marlboro.ttf", 24);
@@ -29,8 +29,8 @@ bool AstroidFighter::Initialize()
 	//m_scoreText = std::make_unique<cg::Text>(m_fontSmall);
 	//m_livesText = std::make_unique<cg::Text>(m_fontSmall);
 	//m_scoreText->Create(cg::g_renderer, "Score:", cg::Color{ 1, 1, 1, 1 });
-	std::unique_ptr<cg::Text> mytext = std::make_unique<cg::Text>();
-	mytext->Create(cg::g_renderer, "Bob", cg::Color{ 1, 1, 1, 1 });
+	//std::unique_ptr<cg::Text> mytext = std::make_unique<cg::Text>();
+	//mytext->Create(cg::g_renderer, "Bob", cg::Color{ 1, 1, 1, 1 });
 	//mytext->Draw(cg::g_renderer);
 	//m_titleText = GET_RESOURCE(cg::Text, "Asteroid Fighter", cg::Color{ 1, 1, 1, 1 }, GET_RESOURCE(cg::Font, "Marlboro.ttf", 34));
 	//m_titleText = std::make_unique<cg::Text>(m_fontBig);

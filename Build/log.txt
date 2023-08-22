@@ -1,5 +1,6 @@
-Info: Factory.h (60) Class Registered: SpriteRenderComponent
-Info: Factory.h (60) Class Registered: ModelRendererComponent
-Info: Factory.h (60) Class Registered: EnginePhysicsComponent
-Info: Factory.h (60) Class Registered: CircleCollisionComponet
-Info: Factory.h (60) Class Registered: Actor
+Info: Factory.h (63) Class Registered: TextRenderComponent
+Info: Factory.h (63) Class Registered: SpriteRenderComponent
+Info: Factory.h (63) Class Registered: ModelRendererComponent
+Info: Factory.h (63) Class Registered: EnginePhysicsComponent
+Info: Factory.h (63) Class Registered: CircleCollisionComponet
+Info: Factory.h (63) Class Registered: Actor

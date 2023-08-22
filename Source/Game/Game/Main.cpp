@@ -15,7 +15,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	
-
+	//cg::Text bob;
+	
 	//Initialization
  	cg::MemoryTracker::Initialize();
 	cg::seedRandom((unsigned int)time(nullptr));

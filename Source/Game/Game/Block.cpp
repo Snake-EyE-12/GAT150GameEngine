@@ -6,7 +6,7 @@
 
 namespace cg
 {
-	CLASS_DEFINITION(Block);
+	//CLASS_DEFINITION(Block);
 
 	void Block::Update(float dt)
 	{

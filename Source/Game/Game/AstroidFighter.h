@@ -1,7 +1,7 @@
 #pragma once
 #include "Framework/Game.h"
-#include "Renderer/Text.h"
 #include "Framework/Scene.h"
+#include "Renderer/Font.h"
 
 class AstroidFighter : public cg::Game
 {
