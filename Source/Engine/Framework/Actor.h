@@ -14,6 +14,7 @@ namespace cg
 		Actor(const cg::Transform& transform) :
 			transform{ transform }
 		{}
+		Actor(const Actor& other);
 
 		CLASS_DECLARATION(Actor);
 
@@ -38,12 +39,15 @@ namespace cg
 		class Game* m_game = nullptr;
 		cg::Transform transform;
 		std::string tag;
+
 		float lifespan = -1.0f;
+		bool m_destroyed = false;
+		bool persistent = false;
+		bool prototype = false;
 
 	protected:
 		std::vector<std::unique_ptr<Component>> components;
 
-		bool m_destroyed = false;
 
 	};
 	template<typename T>

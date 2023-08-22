@@ -10,11 +10,12 @@ namespace cg
 {
 	bool Player::Initialize()
 	{
-		auto m_physicsComponent = m_owner->GetComponent<cg::PhysicsComponent>();
-		auto collisionComponent = m_owner->GetComponent<cg::CollisionComponent>();
+		Actor::Initialize();
+		auto m_physicsComponent = GetComponent<cg::PhysicsComponent>();
+		auto collisionComponent = GetComponent<cg::CollisionComponent>();
 
 		if (collisionComponent) {
-			collisionComponent->m_radius = m_owner->GetComponent<cg::RenderComponent>()->GetRadius() * m_owner->transform.scale;
+			collisionComponent->m_radius = GetComponent<cg::RenderComponent>()->GetRadius() * transform.scale;
 		}
 		return true;
 	}
@@ -25,24 +26,28 @@ namespace cg
 
 	void Player::Update(float dt)
 	{
+		Actor::Update(dt);
 		float rotate = 0;
 		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
 		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
 
-		m_owner->transform.rotation += rotate * 0.5f * dt;
+		transform.rotation += rotate * 0.5f * dt;
 
 		float thrust = 0;
 		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
-		cg::Vector2 forward = cg::Vector2{ 0, -1 }.Rotate(m_owner->transform.rotation);
+		cg::Vector2 forward = cg::Vector2{ 0, -1 }.Rotate(transform.rotation);
 		//AddForce(forward * m_speed * thrust);
 
-		m_owner->transform.position.x = cg::Wrap(m_owner->transform.position.x, (float)cg::g_renderer.getWidth());
-		m_owner->transform.position.y = cg::Wrap(m_owner->transform.position.y, (float)cg::g_renderer.getHeight());
+		transform.position.x = cg::Wrap(transform.position.x, (float)cg::g_renderer.getWidth());
+		transform.position.y = cg::Wrap(transform.position.y, (float)cg::g_renderer.getHeight());
 
-
-
-		m_owner->GetComponent<cg::PhysicsComponent>()->ApplyForce(forward * thrust * speed);
-
+		auto block = INSTANTIATE(Block, "Bullet");
+		block->transform = { transform.position, cg::randomf(cg::TwoPi), 1 };
+		block->Initialize();
+		m_scene->Add(std::move(block));
+		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {//}&& m_fireTimer <= 0 && !m_onBlock) {
+			GetComponent<cg::PhysicsComponent>()->ApplyForce(forward * thrust * speed);
+		}
 		//m_fireTimer -= dt;
 		//if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && m_fireTimer <= 0 && !m_onBlock) {
 		//	cg::Transform transform{transform.position, cg::randomf(cg::TwoPi), 5};
@@ -56,7 +61,7 @@ namespace cg
 
 	}
 
-	void Player::OnCollision(Actor* other)
+	/*void Player::OnCollision(Actor* other)
 	{
 		if (m_destroyed) return;
 		if (other->tag == "Enemy" && dynamic_cast<Enemy*>(other)->m_aliveTime >= 0.5f) {
@@ -111,7 +116,7 @@ namespace cg
 
 	}
 
-	/*void Player::Destroy()
+	void Player::Destroy()
 	{
 		m_destroyed = true;
 	}*/

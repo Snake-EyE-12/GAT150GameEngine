@@ -5,7 +5,8 @@
 
 #define CLASS_DECLARATION(classname) \
 	virtual const char* GetClassName() {return #classname;} \
-	void Read(const rapidjson::Value& value); \
+	virtual void Read(const rapidjson::Value& value); \
+	virtual std::unique_ptr<Object> Clone() { return std::make_unique<classname>(*this); } \
 	class Register \
 	{ \
 	public: \
@@ -29,8 +30,10 @@ namespace cg
 
 		virtual bool Initialize() { return true; }
 		virtual void OnDestroy() {}
-	protected:
+
+	public:
 		std::string name;
+		bool active = true;
 
 	};
 }

@@ -8,7 +8,7 @@ namespace cg
 	CLASS_DEFINITION(SpriteRenderComponent);
 	bool SpriteRenderComponent::Initialize()
 	{
-		m_texture = GET_RESOURCE(cg::Texture, textureName, g_renderer);
+		if(!textureName.empty()) m_texture = GET_RESOURCE(cg::Texture, textureName, g_renderer);
 		return true;
 	}
 	void SpriteRenderComponent::Update(float dt)

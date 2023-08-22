@@ -6,7 +6,7 @@ namespace cg
 	CLASS_DEFINITION(ModelRendererComponent);
 	bool ModelRendererComponent::Initialize()
 	{
-		m_model = GET_RESOURCE(Model, modelName);
+		if(!modelName.empty()) m_model = GET_RESOURCE(Model, modelName);
 		return true;
 	}
 	void ModelRendererComponent::Update(float dt)

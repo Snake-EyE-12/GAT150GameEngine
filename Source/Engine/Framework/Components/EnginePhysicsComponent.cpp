@@ -15,5 +15,7 @@ namespace cg
 	{
 		m_velocity += force / m_mass;
 	}
+	void EnginePhysicsComponent::Read(const json_t& value) {
 
+	}
 }

@@ -8,21 +8,28 @@
 
 namespace cg
 {
-	class Renderer; //Avoids #include
+	class Renderer;
 
 	class Scene
 	{
 	public:
 		Scene() = default;
+		bool Initialize();
 		void Update(float dt);
 		void Draw(Renderer& renderer);
 		void Add(std::unique_ptr<Actor> actor);
-		void RemoveAll();
+		void RemoveAll(bool force = false);
+
+		bool Load(const std::string& filename);
+		void Read(const json_t& value);
 
 		std::vector<Block*> GetBlocks();
 
 		template<typename T>
 		T* GetActor();
+
+		template<typename T = Actor>
+		T* GetActorByName(const std::string& name);
 		
 		
 		friend class Actor;
@@ -37,6 +44,17 @@ namespace cg
 		for (auto& actor : m_actors) {
 			T* result = dynamic_cast<T*>(actor.get());
 			if (result) return result;
+		}
+		return nullptr;
+	}
+	template<typename T>
+	inline T* Scene::GetActorByName(const std::string& name)
+	{
+		for (auto& actor : m_actors) {
+			if (actor->name == name) {
+				T* result = dynamic_cast<T*>(actor.get());
+				if (result) return result;
+			}
 		}
 		return nullptr;
 	}

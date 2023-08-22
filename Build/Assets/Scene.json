@@ -1,0 +1,65 @@
+{
+	"actors":[
+		{
+			"type": "Actor",
+			"name": "Background",
+			"persistent": true,
+			"transform": {
+				"position": [
+					400,
+					300
+				],
+				"scale": 2.0,
+				"rotation": 1.66666
+			},
+			"components": [
+				{
+					"type": "SpriteRenderComponent",
+					"textureName": "spaceBackground.png"
+				}
+			]
+		},
+		{
+			"type": "Bullet",
+			"name": "Bullet",
+			"tag": "Player",
+			"prototype": true,
+			"lifespan": 2,
+			"transform": {
+				"position": [
+					400,
+					300
+				],
+				"scale": 1.0,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteRenderComponent",
+					"textureName": "rocket.png"
+				},
+				{
+					"type": "CircleCollisionComponent"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Title",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 2,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "arcadeclassic.ttf",
+					"fontSize": 24,
+					"text": "ASTEROIDZ"
+				}
+			]
+		}
+	]
+}

@@ -192,6 +192,9 @@
     <ProjectReference Include="..\..\Engine\Input\Input.vcxproj">
       <Project>{e8ede094-1b7e-4f2d-b51c-0903d8c89580}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Physics\Physics.vcxproj">
+      <Project>{03ac02c3-999c-4461-89ff-3e09408c840b}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Renderer\Renderer.vcxproj">
       <Project>{6f6124b6-cb21-4d16-b50d-dd98585064a1}</Project>
     </ProjectReference>
@@ -204,6 +207,9 @@
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\Build\Assets\Scene.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,10 +1,10 @@
 #pragma once
-#include "Framework/Components/Component.h"
+#include "Framework/Actor.h"
 
 
 namespace cg
 {
-	class Player : public Component
+	class Player : public Actor
 	{
 	public:
 

@@ -14,4 +14,7 @@ namespace cg
         return distance <= radius;
 
     }
+    void CircleCollisionComponet::Read(const json_t& value) {
+
+    }
 }

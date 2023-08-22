@@ -3,22 +3,21 @@
 #include "Core/Math/Color.h"
 #include <string>
 #include <memory>
-#include "Framework/Resource/Resource.h"
 
 struct SDL_Texture;
 
 namespace cg
 {
 	class Renderer;
-	class Text : public Resource
+	class Text
 	{
 	public:
 		Text() = default;
 		Text(std::shared_ptr<Font> font) : m_font{ font } { }
 		~Text();
-		virtual bool Create(std::string filename, ...) override;
-		bool Load(Renderer& renderer, const std::string& text, const Color& color);
-		void Draw(Renderer& renderer, int x, int y);
+		bool Create(Renderer& renderer, const std::string& text, const Color& color);
+		//void Draw(Renderer& renderer, int x, int y);
+		void Draw(Renderer& renderer, const class Transform& transform);
 
 	private:
 		std::shared_ptr<Font> m_font;

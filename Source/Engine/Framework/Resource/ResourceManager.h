@@ -5,7 +5,7 @@
 #include <string>
 #include "Framework/Singleton.h"
 
-#define GET_RESOURCE(type, filename, ...) cg::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__);
+#define GET_RESOURCE(type, filename, ...) cg::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
 
 
 namespace cg
