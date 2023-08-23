@@ -76,6 +76,7 @@ namespace cg
 		if (iter != m_registry.end()) {
 			return std::unique_ptr<T>(dynamic_cast<T*>(iter->second->Create().release()));
 		}
-		return std::unique_ptr<T>(); // DID NOT LOOK AT
+		ERROR_LOG("Class Not Found: " << key);
+		return std::unique_ptr<T>();
 	}
 }

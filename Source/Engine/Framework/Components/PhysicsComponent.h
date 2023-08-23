@@ -7,6 +7,7 @@ namespace cg
 	{
 	public:
 		virtual void ApplyForce(const Vector2& force) = 0;
+		virtual void ApplyTorque(float torque) = 0;
 	public:
 		Vector2 m_velocity;
 		Vector2 m_acceleration;

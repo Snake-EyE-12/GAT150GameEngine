@@ -2,8 +2,9 @@
 #include "Framework/Game.h"
 #include "Framework/Scene.h"
 #include "Renderer/Font.h"
+#include "Framework/Event/EventManager.h"
 
-class AstroidFighter : public cg::Game
+class AstroidFighter : public cg::Game, cg::IEventListener
 {
 public:
 	enum eState
@@ -27,6 +28,8 @@ public:
 
 	virtual void Draw(cg::Renderer& renderer) override;
 	void SetState(eState state) { m_state = state; }
+	void OnAddPoints(const cg::Event& event);
+	void OnPlayerDead(const cg::Event& event);
 	bool AttemptClearTetris();
 	void TetrisMaxHeightReached();
 

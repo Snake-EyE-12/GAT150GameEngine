@@ -24,7 +24,7 @@ namespace cg
 			}
 			else iter++;
 		}
-		for (auto iter1 = m_actors.begin(); iter1 != m_actors.end(); iter1++) {
+		/*for (auto iter1 = m_actors.begin(); iter1 != m_actors.end(); iter1++) {
 			for (auto iter2 = std::next(iter1); iter2 != m_actors.end(); iter2++) {
 
 				CollisionComponent* collision1 = (*iter1)->GetComponent<CollisionComponent>();
@@ -35,7 +35,7 @@ namespace cg
 					(*iter2)->OnCollision(iter1->get());
 				}
 			}
-		}
+		}*/
 	}
 	void Scene::Draw(Renderer& renderer)
 	{

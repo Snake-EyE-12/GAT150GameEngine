@@ -1,5 +1,5 @@
 {
-	"actors":[
+	"actors": [
 		{
 			"type": "Actor",
 			"name": "Background",
@@ -34,6 +34,35 @@
 					"fontName": "Marlboro.ttf",
 					"fontSize": 24,
 					"text": "ASTEROIDZ"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Player",
+			"prototype": true,
+			"tag": "Player",
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"speed": 30,
+			"turnRate":  3.0,
+			"components": [
+				{
+					"type": "SpriteRenderComponent",
+					"textureName": "rocket.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 1
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [32, 32]
 				}
 			]
 		}

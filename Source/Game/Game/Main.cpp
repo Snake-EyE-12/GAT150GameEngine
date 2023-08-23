@@ -6,15 +6,27 @@
 #include "Core/Core.h"
 #include "Core/Json.h"
 #include "Physics/PhysicsSystem.h"
+#include <functional>
 
 
 using namespace std;
 
+////////////////////////////////////////////////////////////////////////////
 
+
+
+////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char* argv[])
 {
-	
+	////////////////////////////////////////////////////////////////////////////
+
+
+
+	/////////////////////////////////////////////////////////////////////////////
+
+
+
 	//cg::Text bob;
 	
 	//Initialization
@@ -37,6 +49,7 @@ int main(int argc, char* argv[])
 		cg::g_audioSystem.Update();
 		cg::g_inputSystem.Update();
 		cg::g_particleSystem.Update(cg::g_time.GetDeltaTime());
+		cg::PhysicsSystem::Instance().Update(cg::g_time.GetDeltaTime());
 		game->Update(cg::g_time.GetDeltaTime());
 
 		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE)) quit = true;

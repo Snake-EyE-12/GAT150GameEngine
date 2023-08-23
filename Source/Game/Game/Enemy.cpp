@@ -24,6 +24,8 @@ void Enemy::Update(float dt)
 
 	cg::Vector2 forward = cg::Vector2{ 0, -1 }.Rotate(transform.rotation);
 
+	m_physComp->ApplyTorque(turnAngle);
+
 	//Player* player = m_scene->GetActor<Player>();
 	//if (player) {
 	//	cg::Vector2 direction = player->m_transform.position - m_transform.position;

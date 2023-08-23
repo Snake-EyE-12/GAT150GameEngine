@@ -66,7 +66,10 @@ namespace cg
 		//m_velocity *= 0;
 		m_placed = true;
 		//std::cout << "Placed" << std::endl;
-		if (dynamic_cast<AstroidFighter*>(m_game)->AttemptClearTetris()) m_game->AddPoints(1000);
+		if (dynamic_cast<AstroidFighter*>(m_game)->AttemptClearTetris()) {
+			//m_game->AddPoints(1000);
+			cg::EventManager::Instance().DispatchEvent("AddPoints", 1000);
+		}
 	}
 
 	bool Block::Destroy()

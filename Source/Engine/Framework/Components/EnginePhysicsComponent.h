@@ -11,6 +11,9 @@ namespace cg
 		virtual void Update(float dt) override;
 
 		virtual void ApplyForce(const Vector2& force) override;
+		void ApplyTorque(float torque) override;
+
+
 
 	};
 }

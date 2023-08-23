@@ -3,4 +3,9 @@ Info: Factory.h (63) Class Registered: SpriteRenderComponent
 Info: Factory.h (63) Class Registered: ModelRendererComponent
 Info: Factory.h (63) Class Registered: EnginePhysicsComponent
 Info: Factory.h (63) Class Registered: CircleCollisionComponet
+Info: Factory.h (63) Class Registered: Box2DPhysicsComponent
+Info: Factory.h (63) Class Registered: Box2DCollisionComponent
 Info: Factory.h (63) Class Registered: Actor
+Info: Factory.h (69) Class Registered: Player
+Info: EventManager.cpp (16) Event Subscribed: AddPoints
+Info: EventManager.cpp (16) Event Subscribed: PlayerDie

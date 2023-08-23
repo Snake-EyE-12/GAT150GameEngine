@@ -42,6 +42,10 @@ bool AstroidFighter::Initialize()
 	//m_gameOverText = std::make_unique<cg::Text>(m_fontBig);
 	//m_gameOverText->Create(cg::g_renderer, "Game Over", cg::Color{ 1, 0, 0, 1 });
 
+
+
+
+
 	//Audio
 	cg::g_audioSystem.AddAudio("hit", "boom.wav");
 	cg::g_audioSystem.AddAudio("zap", "zap.wav");
@@ -55,6 +59,9 @@ bool AstroidFighter::Initialize()
 	m_scene->Load("Scene.json");
 	m_scene->Initialize();
 	
+	//Events
+	cg::EventManager::Instance().Subscribe("AddPoints", this, std::bind(&AstroidFighter::OnAddPoints, this, std::placeholders::_1));
+	cg::EventManager::Instance().Subscribe("PlayerDie", this, std::bind(&AstroidFighter::OnPlayerDead, this, std::placeholders::_1));
 
 	return true;
 }
@@ -212,6 +219,16 @@ void AstroidFighter::Draw(cg::Renderer& renderer)
 	
 
 	m_scene->Draw(renderer);
+}
+
+void AstroidFighter::OnAddPoints(const cg::Event& event)
+{
+	m_score += std::get<int>(event.data);
+}
+
+void AstroidFighter::OnPlayerDead(const cg::Event& event)
+{
+	m_state = eState::PlayerDeadStart;
 }
 
 bool AstroidFighter::AttemptClearTetris()

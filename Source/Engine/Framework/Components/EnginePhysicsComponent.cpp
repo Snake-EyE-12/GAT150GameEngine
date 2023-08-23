@@ -15,6 +15,9 @@ namespace cg
 	{
 		m_velocity += force / m_mass;
 	}
+	void EnginePhysicsComponent::ApplyTorque(float torque)
+	{
+	}
 	void EnginePhysicsComponent::Read(const json_t& value) {
 
 	}
