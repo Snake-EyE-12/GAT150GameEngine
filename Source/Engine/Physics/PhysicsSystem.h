@@ -3,6 +3,7 @@
 #include <memory>
 #include "Core/Math/Vector2.h"
 #include <box2d/include/box2d/box2d.h>
+#include "ContactListener.h"
 
 
 #define VEC2_TO_B2VEC2(vec) (*(b2Vec2*)(&vec))
@@ -25,6 +26,7 @@ namespace cg
 		struct CollisionData
 		{
 			Vector2 size;
+			Vector2 offset;
 			float density = 1;
 			float friction = 1;
 			float restitution = 0.3f;
@@ -38,7 +40,6 @@ namespace cg
 		friend class Box2DCollisionComponent;
 	private:
 		PhysicsSystem() = default;
-	private:
 		b2Body* CreateBody(const vec2& position, float angle, const RigidBodyData& data);
 		void DestroyBody(b2Body* body);
 
@@ -47,7 +48,10 @@ namespace cg
 
 		vec2 WorldToScreen(const vec2& world) { return world * m_pixelsPerUnit; }
 		vec2 ScreenToWorld(const vec2& screen) { return screen * (1.0f / m_pixelsPerUnit); }
+	private:
 		std::unique_ptr<b2World> m_world;
+		std::unique_ptr<cg::ContactListener> m_contactListener;
 		float m_pixelsPerUnit = 48.0f;
+
 	};
 }

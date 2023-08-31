@@ -15,6 +15,9 @@ namespace cg
 			transform{ transform }
 		{}
 		Actor(const Actor& other);
+		virtual ~Actor() {
+			OnDestroy();
+		}
 
 		CLASS_DECLARATION(Actor);
 
@@ -29,9 +32,9 @@ namespace cg
 		template<typename T>
 		T* GetComponent();
 
-		float GetRadius() { return 15.0f; }
 
-		virtual void OnCollision(Actor* other) {}
+		virtual void OnCollisionEnter(Actor* other) {}
+		virtual void OnCollisionExit(Actor* other) {}
 
 
 		class Scene* m_scene = nullptr;

@@ -1,0 +1,23 @@
+{
+	"actors":[
+		{
+			"type": "Actor",
+			"name": "Title",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 200 ],
+				"scale": 2,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "fonts/Marlboro.ttf",
+					"fontSize": 44,
+					"text": "You Died",
+					"color": [ 0.3, 1.0, 0.5, 1.0 ]
+				}
+			]
+		}
+	]
+}

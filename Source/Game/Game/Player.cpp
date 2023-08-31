@@ -1,13 +1,15 @@
 #include "Player.h"
 #include "Input/InputSystem.h"
-#include "Block.h"
 #include "Enemy.h"
 #include "AstroidFighter.h"
 #include "Framework/Framework.h"
 #include "Audio/AudioSystem.h"
 #include "Renderer/Renderer.h"
+#include "Bullet.h"
+#include "Core/Math/MathUtils.h"
 namespace cg
 {
+	CLASS_DEFINITION(Player);
 	bool Player::Initialize()
 	{
 		Actor::Initialize();
@@ -41,32 +43,31 @@ namespace cg
 		transform.position.x = cg::Wrap(transform.position.x, (float)cg::g_renderer.getWidth());
 		transform.position.y = cg::Wrap(transform.position.y, (float)cg::g_renderer.getHeight());
 
-		auto block = INSTANTIATE(Block, "Bullet");
+		/*auto block = INSTANTIATE(Bullet, "Bullet");
 		block->transform = { transform.position, cg::randomf(cg::TwoPi), 1 };
-		block->Initialize();
-		m_scene->Add(std::move(block));
-		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {//}&& m_fireTimer <= 0 && !m_onBlock) {
-			GetComponent<cg::PhysicsComponent>()->ApplyForce(forward * thrust * speed);
-		}
-		//m_fireTimer -= dt;
-		//if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && m_fireTimer <= 0 && !m_onBlock) {
-		//	cg::Transform transform{transform.position, cg::randomf(cg::TwoPi), 5};
-		//	std::unique_ptr<Block> block = std::make_unique<Block>(600.0f, transform, cg::random(0, 6), forward.Normalized());
-		//	block->tag = "Block";
-		//	block->m_game = m_game;
-		//	//m_scene->Add(std::move(block));
-		//	m_fireTimer = m_fireRate;
+		block->Initialize();*/
+		//	m_scene->Add(std::move(block));
+		//if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {//}&& m_fireTimer <= 0 && !m_onBlock) {
+		//	GetComponent<cg::PhysicsComponent>()->ApplyForce(forward * thrust * speed);
 		//}
+		m_fireTimer -= dt;
+		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && m_fireTimer <= 0) {
+			auto weapon = INSTANTIATE(Bullet, "Bullet");
+			weapon->transform = { transform.position + forward * 30, transform.rotation + cg::Deg2Rad(10.0f), 1 };
+			weapon->Initialize();
+			m_scene->Add(std::move(weapon));
+			m_fireTimer = fireRate;
+		}
 		//m_onBlock = false;
 
 	}
 
-	/*void Player::OnCollision(Actor* other)
+	void Player::OnCollisionEnter(Actor* other)
 	{
 		if (m_destroyed) return;
 		if (other->tag == "Enemy" && dynamic_cast<Enemy*>(other)->m_aliveTime >= 0.5f) {
 			cg::g_audioSystem.PlayOneShot("damage", false);
-			m_health -= 8;
+			//m_health -= 8;
 			//Particles
 			cg::EmitterData data;
 			data.burst = true;
@@ -88,7 +89,7 @@ namespace cg
 		}
 		if (other->tag == "Bullet") {
 			cg::g_audioSystem.PlayOneShot("damage", false);
-			m_health -= 4;
+			//m_health -= 4;
 			//Particles
 			cg::EmitterData data;
 			data.burst = true;
@@ -108,19 +109,13 @@ namespace cg
 			emitter->lifespan = 0.3f;
 			m_scene->Add(std::move(emitter));
 		}
-		if (m_health <= 0) {
-			m_destroyed = true;
-			dynamic_cast<AstroidFighter*>(m_game)->SetState(AstroidFighter::eState::PlayerDeadStart);
-		}
-		m_onBlock = other->tag == "Block";
+		
 
 	}
 
-	void Player::Destroy()
-	{
-		m_destroyed = true;
-	}*/
+	
 	void Player::Read(const json_t& value) {
 		READ_DATA(value, speed);
+		READ_DATA(value, fireRate);
 	}
 }

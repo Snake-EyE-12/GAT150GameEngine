@@ -19,6 +19,7 @@ namespace cg
 		std::string text;
 		std::string fontName;
 		int fontSize = 0;
+		Color color = Color{1,1,1,1};
 	private:
 		bool m_changed = true;
 		std::unique_ptr<cg::Text> m_text;

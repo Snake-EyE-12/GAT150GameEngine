@@ -7,15 +7,17 @@ namespace cg
 	class Player : public Actor
 	{
 	public:
+		CLASS_DECLARATION(Player);
 
 		bool Initialize() override;
 		void Update(float dt) override;
-		void Read(const json_t& value);
-
+		void OnCollisionEnter(Actor* other) override;
 
 
 	private:
 		float speed = 0;
+		float fireRate = 0;
+		float m_fireTimer = 0;
 
 
 

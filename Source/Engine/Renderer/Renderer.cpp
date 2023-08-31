@@ -81,4 +81,37 @@ namespace cg
 		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, cg::Rad2Deg(mx.GetRotation()), NULL, SDL_FLIP_NONE);
 	}
 
+	void Renderer::DrawTexture(Texture* texture, const Rect& source, const Transform& transform)
+	{
+		Matrix3x3 mx = transform.GetMatrix();
+
+		Vector2 position = mx.GetTranslation();
+		Vector2 size = Vector2{source.w, source.h} * mx.GetScale();
+
+		SDL_Rect dest;
+		dest.x = (int)(position.x - (size.x * 0.5f));
+		dest.y = (int)(position.y - (size.y * 0.5f));
+		dest.w = size.x;
+		dest.h = size.y;
+		SDL_RenderCopyEx(m_renderer, texture->m_texture, (SDL_Rect*)(&source), (&dest), cg::Rad2Deg(mx.GetRotation()), NULL, SDL_FLIP_NONE);
+	}
+
+	void Renderer::DrawTexture(Texture* texture, const Rect& source, const Transform& transform, const Vector2& origin, bool flipH)
+	{
+		Matrix3x3 mx = transform.GetMatrix();
+
+		Vector2 position = mx.GetTranslation();
+		Vector2 size = Vector2{ source.w, source.h } *mx.GetScale();
+
+		SDL_Rect dest;
+		dest.x = (int)(position.x - (size.x * origin.x));
+		dest.y = (int)(position.y - (size.y * origin.y));
+		dest.w = size.x;
+		dest.h = size.y;
+
+		SDL_Point center{ (int)(size.x * origin.x), (int)(size.y * origin.y) };
+
+		SDL_RenderCopyEx(m_renderer, texture->m_texture, (SDL_Rect*)(&source), (&dest), cg::Rad2Deg(mx.GetRotation()), &center, (flipH) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+	}
+
 }

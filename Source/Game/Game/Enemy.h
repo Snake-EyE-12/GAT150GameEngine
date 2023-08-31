@@ -2,32 +2,36 @@
 #include "Framework/Actor.h"
 #include "Renderer/Model.h"
 #include "Framework/Components/PhysicsComponent.h"
-class Enemy : public cg::Actor
+
+namespace cg
 {
-public:
-	CLASS_DECLARATION(Enemy);
-
-	Enemy(float speed, float turnRate, const cg::Transform& transform) :
-		Actor{ transform },
-		m_speed{ speed },
-		m_turnRate{ turnRate }
+	class Enemy : public cg::Actor
 	{
-		m_fireRate = 2.0f;
-		m_fireTimer = m_fireRate;
-	
-	}
-	bool Initialize() override;
-	void Update(float dt) override;
-	void OnCollision(Actor* other) override;
-	void OnDestroy() override;
-	float m_aliveTime = 0;
-private:
-	float m_speed = 0;
-	float m_turnRate = 0;
+	public:
+		CLASS_DECLARATION(Enemy);
+		Enemy() = default;
+		Enemy(float speed, float turnRate, const cg::Transform& transform) :
+			Actor{ transform },
+			m_speed{ speed },
+			m_turnRate{ turnRate }
+		{
+			m_fireRate = 2.0f;
+			m_fireTimer = m_fireRate;
 
-	float m_fireRate = 0;
-	float m_fireTimer = 0;
+		}
+		bool Initialize() override;
+		void OnDestroy() override;
+		void Update(float dt) override;
+		void OnCollisionEnter(Actor* other) override;
+		float m_aliveTime = 0;
+	private:
+		float m_speed = 0;
+		float m_turnRate = 0;
 
-	cg::PhysicsComponent* m_physComp = nullptr;
+		float m_fireRate = 0;
+		float m_fireTimer = 0;
 
-};
+		cg::PhysicsComponent* m_physComp = nullptr;
+
+	};
+}

@@ -1,8 +1,6 @@
 #include "AstroidFighter.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Laser.h"
-#include "Block.h"
 
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
@@ -56,7 +54,7 @@ bool AstroidFighter::Initialize()
 
 	//Scene
 	m_scene = std::make_unique<cg::Scene>();
-	m_scene->Load("Scene.json");
+	m_scene->Load("scenes/SpaceScene.json");
 	m_scene->Initialize();
 	
 	//Events
@@ -97,31 +95,10 @@ void AstroidFighter::Update(float dt)
 	case eState::StartLevel: {
 		m_scene->RemoveAll();
 
-		//std::unique_ptr<Player> player = std::make_unique<Player>(0.3f, 5.0f, cg::Pi, cg::Transform{ {400, 300}, 0, 5 });
-		//player->tag = "Player";
-		//player->m_game = this;
-
-		//std::unique_ptr<cg::SpriteComponent> rComponent = std::make_unique<cg::SpriteComponent>();
-		//auto rComponent = CREATE_CLASS(SpriteRenderComponent);
-		//rComponent->m_texture = GET_RESOURCE(cg::Texture, "Rocket.png", cg::g_renderer);
-		//player->AddComponent(std::move(rComponent));
-
-		auto phyComponent = std::make_unique<cg::EnginePhysicsComponent>();
-		phyComponent->m_damping = 0.6f;
-		//player->AddComponent(std::move(phyComponent));
-
-		auto colComponent = std::make_unique<cg::CircleCollisionComponet>();
-		colComponent->m_radius = 0.6f;
-		//player->AddComponent(std::move(colComponent));
-
-		//player->Initialize();
-
-		//m_scene->Add(move(player));
-
-		std::unique_ptr<Laser> laser = std::make_unique<Laser>(cg::Transform{ {400, 10}, 0, 40 });
-		laser->tag = "Laser";
-		laser->m_game = this;
-		m_scene->Add(move(laser));
+		auto player = INSTANTIATE(Player, "Player");
+		player->transform = cg::Transform{ { 400, 300 }, 0, 1 };
+		player->Initialize();
+		m_scene->Add(std::move(player));
 
 		m_state = eState::Game;
 		break;	
@@ -132,23 +109,10 @@ void AstroidFighter::Update(float dt)
 	case eState::Game:
 		m_spawnTime += dt;
 		if (m_spawnTime >= m_spawnRate) {
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(cg::randomf(100, 150), cg::Pi, cg::Transform{ {cg::random(800), cg::random(600)}, cg::randomf(cg::TwoPi), 6});
-			enemy->tag = "Enemy";
-			enemy->m_game = this;
-			std::unique_ptr<cg::SpriteRenderComponent> component = std::make_unique<cg::SpriteRenderComponent>();
-			component->m_texture = GET_RESOURCE(cg::Texture, "Rocket.png", cg::g_renderer);
-
-			auto phyComponent = std::make_unique<cg::EnginePhysicsComponent>();
-			phyComponent->m_damping = 0.6f;
-			enemy->AddComponent(std::move(phyComponent));
-
-			auto colComponent = std::make_unique<cg::CircleCollisionComponet>();
-			colComponent->m_radius = 0.6f;
-			enemy->AddComponent(std::move(colComponent));
-
-
-			m_scene->Add(move(enemy));
-
+			auto enemy = INSTANTIATE(Enemy, "Enemy");
+			enemy->transform = cg::Transform{ { cg::random(800), cg::random(600) }, cg::randomf(cg::TwoPi), 1 };
+			enemy->Initialize();
+			m_scene->Add(std::move(enemy));
 			m_spawnTime = 0;
 		}
 		

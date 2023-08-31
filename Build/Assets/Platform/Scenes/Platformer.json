@@ -1,0 +1,349 @@
+{
+	"actors": [
+		{
+			"type": "Actor",
+			"name": "Background",
+			"persistent": true,
+			"transform": {
+				"position": [
+					400,
+					300
+				],
+				"scale": 1.0,
+				"rotation": 0.0
+			},
+			"components": [
+				{
+					"type": "SpriteRenderComponent",
+					"textureName": "textures/background.png"
+
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Crate",
+			"tag": "Ground",
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [
+					500,
+					300
+				],
+				"scale": 1.0,
+				"rotation": 0.0
+			},
+			"components": [
+				{
+					"type": "SpriteRenderComponent",
+					"textureName": "textures/crate.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0,
+					"gravityScale": 0.1,
+					"constrainAngle": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.01
+				}
+			]
+		},
+		{
+			"type": "Player",
+			"name": "Player",
+			"tag": "Player",
+			"persistent": true,
+			"speed": 9.5,
+			"jump": 3,
+			"transform": {
+				"position": [
+					440,
+					300
+				],
+				"scale": 1.5,
+				"rotation": 0.0
+			},
+			"components": [
+				{
+					"type": "SpriteAnimRenderComponent",
+					"defaultSequenceName": "idle",
+					"origin": [ 0.5, 0.5 ],
+					"sequences": [
+						{
+							"name": "idle",
+							"fps": 2,
+							"numColumns": 8,
+							"numRows": 8,
+							"startFrame": 9,
+							"endFrame": 11,
+							"textureName": "textures/spritesheet.png"
+						},
+						{
+							"name": "run",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 8,
+							"startFrame": 1,
+							"endFrame": 8,
+							"textureName": "textures/spritesheet.png"
+						},
+						{
+							"name": "jump",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 8,
+							"startFrame": 49,
+							"endFrame": 52,
+							"textureName": "textures/spritesheet.png"
+						},
+						{
+							"name": "dead",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 8,
+							"startFrame": 9,
+							"endFrame": 13,
+							"textureName": "textures/spritesheet.png"
+						}
+					]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0,
+					"gravityScale": 0.1,
+					"constrainAngle": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0
+				}
+			]
+		},
+		{
+			"type": "Enemy",
+			"name": "Enemy",
+			"tag": "Enemy",
+			"persistant": true,
+			"speed": 1,
+			"transform": {
+				"position": [
+					940,
+					300
+				],
+				"scale": 1.0,
+				"rotation": 0.0
+			},
+			"components": [
+				{
+					"type": "SpriteAnimRenderComponent",
+					"defaultSequenceName": "idle",
+					"origin": [ 0.5, 0.5 ],
+					"sequences": [
+						{
+							"name": "idle",
+							"fps": 12,
+							"numColumns": 6,
+							"numRows": 1,
+							"startFrame": 1,
+							"endFrame": 1,
+							"textureName": "textures/bat.png"
+						}
+					]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0,
+					"gravityScale": 0,
+					"constrainAngle": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.01,
+					"isTrigger": true
+				}
+			]
+		},
+		{
+			"type": "Coin",
+			"name": "Coin",
+			"tag": "coin",
+			"prototype": true,
+			"transform": {
+				"position": [
+					140,
+					300
+				],
+				"scale": 1.0,
+				"rotation": 0.0
+			},
+			"components": [
+				{
+					"type": "SpriteAnimRenderComponent",
+					"defaultSequenceName": "idle",
+					"sequences": [
+						{
+							"name": "idle",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 1,
+							"startFrame": 1,
+							"endFrame": 1,
+							"textureName": "textures/coinAnimation.png"
+						}
+					]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0,
+					"gravityScale": 0.01,
+					"constrainAngle": false
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0,
+					"isTrigger": true
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"tag": "Ground",
+			"transform": {
+				"position": [
+					400,
+					520
+				]
+			},
+			"components": [
+				{
+					"type": "Box2DPhysicsComponent",
+					"isDynamic": false
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 800, 20 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"tag": "Wall",
+			"transform": {
+				"position": [
+					400,
+					20
+				]
+			},
+			"components": [
+				{
+					"type": "Box2DPhysicsComponent",
+					"isDynamic": false
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 800, 20 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"tag": "Wall",
+			"transform": {
+				"position": [
+					0,
+					300
+				]
+			},
+			"components": [
+				{
+					"type": "Box2DPhysicsComponent",
+					"isDynamic": false
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 20, 800 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"tag": "Wall",
+			"transform": {
+				"position": [
+					800,
+					300
+				]
+			},
+			"components": [
+				{
+					"type": "Box2DPhysicsComponent",
+					"isDynamic": false
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 20, 800 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Title",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 100 ],
+				"scale": 2,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "fonts/Marlboro.ttf",
+					"fontSize": 44,
+					"text": "The Wealthy Eye",
+					"color": [ 0.9, 0.7, 0.7, 1.0 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "CoinCount",
+			"persistent": true,
+			"transform": {
+				"position": [ 100, 200 ],
+				"scale": 1.3,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "fonts/Marlboro.ttf",
+					"fontSize": 44,
+					"text": "Coins",
+					"color": [ 1.0, 1.0, 0.5, 1.0 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Death",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 200 ],
+				"scale": 2,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "fonts/Marlboro.ttf",
+					"fontSize": 44,
+					"text": "You Died",
+					"color": [ 1.0, 0.5, 0.5, 1.0 ]
+				}
+			]
+		}
+	]
+}

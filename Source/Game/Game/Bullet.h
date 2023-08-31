@@ -1,16 +1,25 @@
 #pragma once
 #include "Framework/Actor.h"
-class Bullet : public cg::Actor
+#include "Framework/Components/PhysicsComponent.h"
+namespace cg
 {
-public:
-	Bullet(float speed, const cg::Transform& transform) :
-		Actor{ transform },
-		m_speed{ speed }
+	class Bullet : public cg::Actor
 	{
-		lifespan = 2.0f;
-	}
-	void Update(float dt) override;
-	void OnCollision(Actor* other) override;
-private:
-	float m_speed = 0;
-};
+	public:
+		CLASS_DECLARATION(Bullet);
+		Bullet() = default;
+		Bullet(float speed, const cg::Transform& transform) :
+			Actor{ transform },
+			m_speed{ speed }
+		{
+			lifespan = 2.0f;
+		}
+		bool Initialize() override;
+		void OnDestroy() override;
+		void Update(float dt) override;
+		void OnCollisionEnter(Actor* other) override;
+	private:
+		float m_speed = 0;
+		cg::PhysicsComponent* m_physicsComponent = nullptr;
+	};
+}

@@ -164,6 +164,7 @@
     <ClInclude Include="Math\Matrix2x2.h" />
     <ClInclude Include="Math\Matrix3x3.h" />
     <ClInclude Include="Math\Random.h" />
+    <ClInclude Include="Math\Rect.h" />
     <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />

@@ -11,13 +11,13 @@ namespace cg
 		bool Initialize() override;
 		void Update(float dt) override;
 		void Draw(class Renderer& renderer);
-
-		virtual float GetRadius() { return m_texture->GetSize().Length() * 0.5f; }
-
 		
 
 	public:
+		Rect source;
 		std::string textureName;
 		res_t<Texture> m_texture;
+		bool flipH = false;
+		Vector2 origin{0.5f, 0.5f};
 	};
 }

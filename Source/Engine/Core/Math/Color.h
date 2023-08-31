@@ -11,6 +11,9 @@ namespace cg
 	public:
 		float r, g, b, a;
 	public:
+		float operator [] (size_t index) const { return (&r)[index]; }
+		float& operator [] (size_t index) { return (&r)[index]; }
+
 		Color() : r{ 0 }, g{ 0 }, b{ 0 }, a{ 0 } {}
 		Color(float r, float g, float b, float a = 1) : r{ r }, g{ g }, b{ b }, a{ a } {}
 
